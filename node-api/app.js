@@ -2,6 +2,7 @@ import express from 'express';
 import config from './config/config';
 import datasource from './config/datasource';
 import bodyParser from 'body-parser';
+import usersRouter from './routes/users';
 
 const app = express();
 
@@ -10,8 +11,6 @@ app.datasource = datasource(app);
 app.set('PORT', 7000);
 
 app.use(bodyParser.json());
-
-const Users = app.datasource.models.Users;
 
 var cors = require('cors')
 const corsOpts = {
@@ -22,34 +21,8 @@ const corsOpts = {
 	allowedHeaders: ['Content-Type'],
 }
 
-app.use(cors(corsOpts)) // TRATANDO CORS EXCEPTION
+app.use(cors(corsOpts)) // FIXING CORS
 
-// TESTANDO ...
-app.route('/users')
-.get((req,res) => {
-	Users.findAll({}).then(result => res.json(result))
-	.catch(err => res.status(412))
-})
-.post((req, res) => { // CREATE NEW USER
-	Users.create(req.body)
-	.then(result => res.json(result))
-	.catch(err => res.status(412))
-})
-
-app.route('/users/:id')
-.get((req,res) => { // FIND BY ID
-	Users.findOne({where: req.params}).then(result => res.json(result))
-	.catch(err => res.status(412))
-})
-.put((req, res) => { // UPDATE USER
-	Users.update(req.body, {where: {id: req.params.id}})
-	.then(result => res.json(result))
-	.catch(err => res.status(412))
-})
-.delete((req, res) => { // DELETE USER
-	Users.destroy({where: req.params})
-	.then(result => res.status(204)) // SUCCESS STATUS
-	.catch(err => res.status(412))
-})
+usersRouter(app); // BINDING THE ROUTERS FOR USERS
 
 export default app;
