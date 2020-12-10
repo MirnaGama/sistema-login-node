@@ -15,7 +15,7 @@ export default (sequelize, DataType) => {
     },
 })
      // COMPARING HASH FOR PASSWORD
-    users.isPassword = (encodedPassword, password) => Bcrypt.compareSync(password, encodedPassword);
+    users.isPassword = (encodedPassword, password) => bcrypt.compareSync(password, encodedPassword);
     
     return users;
 }

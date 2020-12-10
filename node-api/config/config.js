@@ -6,5 +6,8 @@ export default {
         dialect: 'sqlite',
         storage: 'users.sqlite',
         define: { underscore: true }
-    }
+    },
+    jwtSecret: 'SecrJwt',
+    jwtSession: {session: false}
+
 }
