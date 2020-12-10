@@ -17,7 +17,7 @@ app.route('/users')
 })
 .post((req, res) => { // CREATE NEW USER
 
-	userController.createUser(req)
+	userController.createUser(req.body)
     .then(response => {
         res.status(response.statusCode)
         res.json(response.data)
