@@ -7,7 +7,7 @@ export default {
         storage: 'users.sqlite',
         define: { underscore: true }
     },
-    jwtSecret: 'SecrJwt',
+    jwtSecret: 'MySecr0tK0y',
     jwtSession: {session: false}
 
 }

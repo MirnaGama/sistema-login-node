@@ -5,7 +5,7 @@ export default (app) => {
 
 const userController = new UsersController(app.datasource.models.Users);
 
-app.route('/users')
+app.route('/users').all(app.auth.authenticate())
 .get((req,res) => {
 
     userController.getAll()
@@ -25,10 +25,11 @@ app.route('/users')
 
 })
 
-app.route('/users/:id')
+// SET Authorization = bearer ${token} ON HEADER WHEN REQUEST THE ENDPOINT
+app.route('/users/:id').all(app.auth.authenticate())
 .get((req,res) => { // FIND BY ID
 
-    userController.getById(req.params)
+    userController.getById(req.params.id)
     .then(response => {
         res.status(response.statusCode)
         res.json(response.data)

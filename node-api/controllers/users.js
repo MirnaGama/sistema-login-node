@@ -13,8 +13,9 @@ class UsersController {
         .catch(error => errorResponse(error.message));
     }
 
-    getById(params) {
-        return this.Users.findOne({where: params}).then(result => defaultResponse(result))
+    getById(id) {
+        console.log(id)
+        return this.Users.findByPk(id).then(result => defaultResponse(result))
         .catch(error => errorResponse(error.message));
     }
 

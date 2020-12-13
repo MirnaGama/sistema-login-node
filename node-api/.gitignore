@@ -1,2 +1,3 @@
 node_modules/
-users.sqlite
+*.sqlite
+package-lock.json
