@@ -14,7 +14,6 @@ class UsersController {
     }
 
     getById(id) {
-        console.log(id)
         return this.Users.findByPk(id).then(result => defaultResponse(result))
         .catch(error => errorResponse(error.message));
     }
