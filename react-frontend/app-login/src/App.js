@@ -1,7 +1,7 @@
 import './App.css';
 import {Route, BrowserRouter as Router, Link} from 'react-router-dom'
 import LoginForm from './Pages/LoginForm'
-import SignUp from './Pages/Signup'
+import SignUpForm from './Pages/SignUpForm'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
     </div>
 
     <Route path="/" exact component={LoginForm}/>
-    <Route path="/cadastro" component={SignUp}/>
+    <Route path="/cadastro" component={SignUpForm}/>
     </Router>
   );
 }

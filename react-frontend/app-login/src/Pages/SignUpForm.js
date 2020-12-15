@@ -3,36 +3,43 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import BaseConnection from "../Config/BaseConnection";
 
-class LoginForm extends Component {
+class SignUpForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {username: '', password: ''};
+    this.state = {name: '', username: '', password: ''};
   }
 
-  // FUNCTION TO LOGIN
+  // FUNCTION TO CREATE USER
   handleSubmit = (event) => {
     event.preventDefault()
-    BaseConnection.post('/token', this.state).then((response) => {
+    BaseConnection.post('/users', this.state).then((response) => {
 
-      if(response.status === 200) {
-        alert("Usuário autenticado com sucesso!")
-      } 
-      
+      alert("Usuário criado com sucesso!")
       console.log(response.data)
 
-    }).catch((response) => {
-      alert("Credenciais incorretas!")
+    }).catch((err) => {
+      alert("Ocorreu algo de errado! Tente novamente!")
     })
   }
 
   validateForm() {
-    return this.state.username.length > 0 && this.state.password.length > 0;
+    return this.state.name.length > 0 
+    && this.state.username.length > 0 
+    && this.state.password.length > 0;
   }
 
   render() {
     return (
       <div className="ContainerForm">
       <Form onSubmit={this.handleSubmit}>
+
+      <Form.Group controlId="name">
+        <Form.Label>Nome:</Form.Label>
+        <Form.Control
+            type="name"
+            value={this.state.name}
+            onChange={(e) => this.setState({name: e.target.value})}/>
+        </Form.Group>
 
        <Form.Group controlId="username">
         <Form.Label>Nome de Usuário:</Form.Label>
@@ -51,7 +58,7 @@ class LoginForm extends Component {
         </Form.Group>
 
         <Button type="submit" block size="lg" disabled={!this.validateForm()}>
-          Login
+          Cadastrar
         </Button>
 
       </Form>
@@ -60,4 +67,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm
+export default SignUpForm;
