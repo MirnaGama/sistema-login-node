@@ -1,6 +1,7 @@
 import {React, Component} from 'react'
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import BaseConnection from "../Config/BaseConnection";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -8,9 +9,20 @@ class LoginForm extends Component {
     this.state = {username: '', password: ''};
   }
 
-  handleSubmit(event) {
-    console.log(this.state)
-    event.preventDefault();
+  // FUNCTION TO LOGIN
+  handleSubmit = (event) => {
+    event.preventDefault()
+    BaseConnection.post('/token', this.state).then((response) => {
+
+      if(response.status === 200) {
+        alert("Usuário autenticado com sucesso!")
+      } 
+      
+      console.log(response.data)
+
+    }).catch((response) => {
+      alert("Credenciais incorretas!")
+    })
   }
 
   validateForm() {
