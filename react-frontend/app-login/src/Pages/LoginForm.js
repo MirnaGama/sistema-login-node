@@ -2,23 +2,33 @@ import {React, Component} from 'react'
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import BaseConnection from "../Config/BaseConnection";
+import { Redirect } from "react-router-dom";
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {username: '', password: ''};
+    this.state = {username: '', password: '', redirect: false};
   }
 
   // FUNCTION TO LOGIN
   handleSubmit = (event) => {
     event.preventDefault()
-    BaseConnection.post('/token', this.state).then((response) => {
+    console.log(this.state)
+    
+    const user = {
+      username: this.state.username,
+      password: this.state.password
+    }
 
-      if(response.status === 200) {
-        alert("Usuário autenticado com sucesso!")
-      } 
-      
-      console.log(response.data)
+    console.log(user)
+    
+    BaseConnection.post('/token', user).then((response) => {
+
+      alert("Usuário autenticado com sucesso!")
+
+      window.localStorage.setItem('token', response.data.token);
+
+      this.setState({redirect: true})
 
     }).catch((response) => {
       alert("Credenciais incorretas!")
@@ -29,9 +39,18 @@ class LoginForm extends Component {
     return this.state.username.length > 0 && this.state.password.length > 0;
   }
 
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to={'/profile/'+this.state.username} />
+    }
+  }
+
   render() {
     return (
       <div className="ContainerForm">
+
+      {this.renderRedirect()}
+
       <Form onSubmit={this.handleSubmit}>
 
        <Form.Group controlId="username">
