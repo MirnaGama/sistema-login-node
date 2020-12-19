@@ -53,4 +53,16 @@ app.route('/users/:id').all(app.auth.authenticate())
 
 })
 
+
+app.route('/users/username/:username').all(app.auth.authenticate())
+.get((req,res) => {
+
+    userController.getByUsername(req.params.username)
+    .then(response => {
+        res.status(response.statusCode)
+        res.json(response.data)
+    })
+
+})
+
 }

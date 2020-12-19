@@ -18,6 +18,14 @@ class UsersController {
         .catch(error => errorResponse(error.message));
     }
 
+    getByUsername(username) {
+        return this.Users.findAll({
+            attributes: ['name', 'username'],
+            where: {username: username}
+          }).then(result => defaultResponse(result))
+          .catch(error => errorResponse(error.message));
+    }
+
     // userData = request body
     createUser(userData) {
         return this.Users.create(userData).then(result => defaultResponse(result, httpStatus.CREATED))
