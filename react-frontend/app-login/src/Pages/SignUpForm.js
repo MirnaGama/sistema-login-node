@@ -1,21 +1,29 @@
 import {React, Component} from 'react'
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Redirect } from "react-router-dom";
 import BaseConnection from "../Config/BaseConnection";
 
 class SignUpForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {name: '', username: '', password: ''};
+    this.state = {name: '', username: '', password: '', redirect: false};
   }
 
   // FUNCTION TO CREATE USER
   handleSubmit = (event) => {
     event.preventDefault()
-    BaseConnection.post('/users', this.state).then((response) => {
+
+    const user = {
+      name: this.state.name,
+      username: this.state.username,
+      password: this.state.password
+    }
+
+    BaseConnection.post('/users', user).then((response) => {
 
       alert("Usuário criado com sucesso!")
-      console.log(response.data)
+      this.setState({redirect: true})
 
     }).catch((err) => {
       alert("Ocorreu algo de errado! Tente novamente!")
@@ -28,9 +36,18 @@ class SignUpForm extends Component {
     && this.state.password.length > 0;
   }
 
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to={'/'} />
+    }
+  }
+
   render() {
     return (
       <div className="ContainerForm">
+
+       {this.renderRedirect()}
+
       <Form onSubmit={this.handleSubmit}>
 
       <Form.Group controlId="name">

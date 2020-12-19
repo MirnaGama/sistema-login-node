@@ -20,7 +20,7 @@ const corsOpts = {
 
 	methods: ['GET', 'POST'],
 
-	allowedHeaders: ['Content-Type'],
+	allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
 }
 
 app.use(cors(corsOpts)) // FIXING CORS

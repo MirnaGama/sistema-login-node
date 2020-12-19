@@ -19,7 +19,7 @@ function App() {
 
     <Route path="/" exact component={LoginForm}/>
     <Route path="/cadastro" component={SignUpForm}/>
-    <Route path="/profile/:name" component={ProfilePage}/>
+    <Route path="/profile" component={ProfilePage}/>
     </Router>
   );
 }

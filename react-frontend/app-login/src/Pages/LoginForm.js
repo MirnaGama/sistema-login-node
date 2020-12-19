@@ -13,20 +13,18 @@ class LoginForm extends Component {
   // FUNCTION TO LOGIN
   handleSubmit = (event) => {
     event.preventDefault()
-    console.log(this.state)
     
     const user = {
       username: this.state.username,
       password: this.state.password
     }
-
-    console.log(user)
     
     BaseConnection.post('/token', user).then((response) => {
 
       alert("Usuário autenticado com sucesso!")
 
       window.localStorage.setItem('token', response.data.token);
+      window.localStorage.setItem('username', this.state.username);
 
       this.setState({redirect: true})
 
@@ -41,7 +39,7 @@ class LoginForm extends Component {
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to={'/profile/'+this.state.username} />
+      return <Redirect to={'/profile'} />
     }
   }
 
