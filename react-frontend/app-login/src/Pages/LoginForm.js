@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom";
 class LoginForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {username: '', password: '', redirect: false};
+    this.state = {username: '', password: '', err_message: '', redirect: false};
   }
 
   // FUNCTION TO LOGIN
@@ -21,15 +21,13 @@ class LoginForm extends Component {
     
     BaseConnection.post('/token', user).then((response) => {
 
-      alert("Usuário autenticado com sucesso!")
-
       window.localStorage.setItem('token', response.data.token);
       window.localStorage.setItem('username', this.state.username);
 
       this.setState({redirect: true})
 
-    }).catch((response) => {
-      alert("Credenciais incorretas!")
+    }).catch((err) => {
+      this.setState({err_message: "Credenciais incorretas!"})
     })
   }
 
@@ -50,6 +48,8 @@ class LoginForm extends Component {
       {this.renderRedirect()}
 
       <Form onSubmit={this.handleSubmit}>
+
+      <p className="text-danger d-flex justify-content-center">{this.state.err_message}</p>
 
        <Form.Group controlId="username">
         <Form.Label>Nome de Usuário:</Form.Label>

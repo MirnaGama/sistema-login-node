@@ -7,26 +7,44 @@ import BaseConnection from "../Config/BaseConnection";
 class SignUpForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {name: '', username: '', password: '', redirect: false};
+    this.state = {name: '', username: '', password: '', err_message: '', redirect: false};
   }
 
   // FUNCTION TO CREATE USER
   handleSubmit = (event) => {
     event.preventDefault()
 
-    const user = {
-      name: this.state.name,
-      username: this.state.username,
-      password: this.state.password
-    }
 
-    BaseConnection.post('/users', user).then((response) => {
+    // checking if username already exists
+    this.isUsernameExists().then(userExists => {
 
-      alert("Usuário criado com sucesso!")
-      this.setState({redirect: true})
+      if (!userExists) {
+        const user = {
+          name: this.state.name,
+          username: this.state.username,
+          password: this.state.password
+        }
+    
+        BaseConnection.post('/users', user).then((response) => {
+    
+          alert("Usuário criado com sucesso!")
+          this.setState({redirect: true})
+    
+        }).catch((err) => {
+          alert("Ocorreu algo de errado! Tente novamente!")
+        })
+    
+        } else {
+          this.setState({err_message: "Este nome de usuário já está sendo usado!"})
+         }
 
-    }).catch((err) => {
-      alert("Ocorreu algo de errado! Tente novamente!")
+    });
+
+  }
+
+  async isUsernameExists() {
+    return BaseConnection.get('/username/' + this.state.username).then((response) => {
+      return response.data;
     })
   }
 
@@ -49,6 +67,8 @@ class SignUpForm extends Component {
        {this.renderRedirect()}
 
       <Form onSubmit={this.handleSubmit}>
+
+      <p className="text-danger d-flex justify-content-center">{this.state.err_message}</p>
 
       <Form.Group controlId="name">
         <Form.Label>Nome:</Form.Label>
