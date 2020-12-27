@@ -53,7 +53,17 @@ app.route('/users/:id').all(app.auth.authenticate())
 
 })
 
+// checking if username already exists 
+app.route('/username/:username')
+.get((req,res) => {
 
+    userController.isUsernameExists(req.params.username).then((response => {
+        res.status(response.statusCode)
+        res.json(response.data)
+    }))
+})
+
+// get user data by username
 app.route('/users/username/:username').all(app.auth.authenticate())
 .get((req,res) => {
 

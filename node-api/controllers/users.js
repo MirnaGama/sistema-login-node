@@ -26,6 +26,12 @@ class UsersController {
           .catch(error => errorResponse(error.message));
     }
 
+    // checking if the username already exists
+    isUsernameExists(username) {
+        return this.Users.count({ where: {'username': username }}).then(count => 
+            defaultResponse(count != 0)); 
+    }
+
     // userData = request body
     createUser(userData) {
         return this.Users.create(userData).then(result => defaultResponse(result, httpStatus.CREATED))
