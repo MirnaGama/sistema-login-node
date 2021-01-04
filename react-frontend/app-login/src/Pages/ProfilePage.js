@@ -18,8 +18,6 @@ export default class ProfilePage extends Component {
       Authorization: 'Bearer ' + token
     }}).then((response) => {
       this.setState({username: response.data[0].username, name: response.data[0].name})
-    }).catch((response) => {
-      alert("Ocorreu algo de errado!")
     })
   }
 
@@ -32,6 +30,7 @@ export default class ProfilePage extends Component {
   }
 
   render() {
+
     return(
       <div className="container">
 
@@ -39,6 +38,7 @@ export default class ProfilePage extends Component {
 
         <div className="ProfilePage">
         <h1>Seja bem-vindo, {this.state.name} !</h1>
+        <h2>@{this.state.username}</h2>
         </div>
       </div>
     )

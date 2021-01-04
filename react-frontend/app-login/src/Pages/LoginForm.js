@@ -36,7 +36,7 @@ class LoginForm extends Component {
   }
 
   renderRedirect = () => {
-    if (this.state.redirect) {
+    if (this.state.redirect || !!window.localStorage.getItem("token")) {
       return <Redirect to={'/profile'} />
     }
   }
