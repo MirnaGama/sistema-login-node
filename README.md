@@ -1,5 +1,5 @@
 # Sobre o projeto
-Sistema de login com backend feito em Node.js e CRUD feito em SQLite
+Sistema de login com backend feito em Node.js e frontend feito em React
 
 ## Como iniciar o back-end (Node.js)
 
