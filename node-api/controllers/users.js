@@ -9,12 +9,15 @@ class UsersController {
     }
 
     getAll() {
-        return this.Users.findAll({}).then(result => defaultResponse(result))
+        return this.Users.findAll({attributes: ['public_id', 'name']}).then(result => defaultResponse(result))
         .catch(error => errorResponse(error.message));
     }
 
-    getById(id) {
-        return this.Users.findByPk(id).then(result => defaultResponse(result))
+    getByPublicId(id) {
+        return this.Users.findAll(
+            {atributes: ['name', 'username'], 
+            where: {public_id: id}})
+            .then(result => defaultResponse(result))
         .catch(error => errorResponse(error.message));
     }
 

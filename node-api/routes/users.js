@@ -63,11 +63,11 @@ app.route('/username/:username')
     }))
 })
 
-// get user data by username
-app.route('/users/username/:username').all(app.auth.authenticate())
+// get user data by public id
+app.route('/users/id/:public_id').all(app.auth.authenticate())
 .get((req,res) => {
 
-    userController.getByUsername(req.params.username)
+    userController.getByPublicId(req.params.public_id)
     .then(response => {
         res.status(response.statusCode)
         res.json(response.data)

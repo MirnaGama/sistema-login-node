@@ -14,7 +14,7 @@ export default app => {
             .then(user => {
                 if(users.isPassword(user.password, password)) {
                     const payload = { id: user.id };
-                    res.json({token: jwt.encode(payload, config.jwtSecret)})
+                    res.json({token: jwt.encode(payload, config.jwtSecret), public_id: user.public_id})
                 } else {
                     res.sendStatus(httpStatus.UNAUTHORIZED)
                 }

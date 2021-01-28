@@ -13,7 +13,7 @@ export default class ProfilePage extends Component {
 
     const token = window.localStorage.getItem('token');
 
-    BaseConnection.get('users/username/' + window.localStorage.getItem('username'), 
+    BaseConnection.get('users/id/' + window.localStorage.getItem('public_id'), 
     { headers: {
       Authorization: 'Bearer ' + token
     }}).then((response) => {

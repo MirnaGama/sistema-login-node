@@ -23,6 +23,7 @@ class LoginForm extends Component {
 
       window.localStorage.setItem('token', response.data.token);
       window.localStorage.setItem('username', this.state.username);
+      window.localStorage.setItem('public_id', response.data.public_id);
 
       this.setState({redirect: true})
 
