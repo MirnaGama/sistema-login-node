@@ -2,7 +2,8 @@ import {React, Component} from 'react'
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
-import BaseConnection from "../Config/BaseConnection";
+import BaseConnection from "../config/BaseConnection";
+import IconForm  from "../components/IconForm";
 
 class SignUpForm extends Component {
   constructor(props) {
@@ -68,6 +69,7 @@ class SignUpForm extends Component {
 
       <Form onSubmit={this.handleSubmit}>
 
+      <IconForm/>
       <p className="text-danger d-flex justify-content-center">{this.state.err_message}</p>
 
       <Form.Group controlId="name">

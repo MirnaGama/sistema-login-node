@@ -1,6 +1,6 @@
 import {React, Component} from 'react'
 import { Redirect } from "react-router-dom";
-import BaseConnection from "../Config/BaseConnection";
+import BaseConnection from "../config/BaseConnection";
 
 export default class ProfilePage extends Component {
   
